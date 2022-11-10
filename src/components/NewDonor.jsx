@@ -175,10 +175,10 @@ export const NewDonor = () => {
             </Button>
 
                  
-            <Button
+            {/* <Button
              type="submit" onClick={() => reset()} variant="contained" color="primary">
               Reset
-            </Button>
+            </Button> */}
           </ButtonGroup>
          
           </form>
