@@ -1,7 +1,7 @@
 import Login from "./components/Login";
 import "./App.css";
 import Register from "./components/Register";
-import { Route, Routes } from "react-router-dom";
+import { Route,Routes } from "react-router-dom";
 import { Home } from "./components/Home";
 import { NewDonor } from "./components/NewDonor";
 import { HospitalRequests } from "./components/HospitalRequests";
@@ -22,9 +22,14 @@ function App() {
     <div>
       <Box>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
+
+          {/* <Route path="/" element={<Navigate to= {<Login/>}/>}/> */}
+            
+            
+
           <Route path="/new donor" element={<NewDonor />} />
           <Route path="/requests" element={<HospitalRequests />} />
         </Routes>

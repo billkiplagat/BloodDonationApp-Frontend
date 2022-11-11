@@ -1,10 +1,10 @@
 /* eslint-disable no-unreachable */
-import axios from "axios"
+// import axios from "axios"
 
 
 
 
-const USERS_API_URL = "http://localhost:8080"
+// const USERS_API_URL = "http://localhost:8080"
 
 
 // const  signupDonor= (username,password) =>{
@@ -25,20 +25,20 @@ const USERS_API_URL = "http://localhost:8080"
 
 // }
 
-const login = (username,password) =>{
+// const login = (username,password) =>{
   
-  return axios
-  .post(USERS_API_URL + "/login", {
-    username,
-    password
-  })
-  .then((response) =>{
-    if(response.data.access_token){
-      localStorage.setItem("user", JSON.stringify(response.data.access_token))
-    }
-    return response.data
-  })
-}
+//   return axios
+//   .post(USERS_API_URL + "/login", {
+//     username,
+//     password
+//   })
+//   .then((response) =>{
+//     if(response.data.access_token){
+//       localStorage.setItem("user", JSON.stringify(response.data))
+//     }
+//     return response.data
+//   })
+// }
 
 
 
@@ -52,7 +52,7 @@ const getCurrentUser = ()=>{
 
 const UserService =  {
   // signupDonor,
-  login,
+  // login,
   logout,
   getCurrentUser
 }

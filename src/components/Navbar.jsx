@@ -22,7 +22,7 @@ function Navbar() {
 
       <List sx={{  display: 'flex'}}>
         <ListItem>
-          <ListItemButton component="a" href="/">
+          <ListItemButton component="a" href="/home">
             <ListItemText primary="Home" />
           </ListItemButton>
         </ListItem>
