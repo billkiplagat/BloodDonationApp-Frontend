@@ -10,7 +10,10 @@ import { Box } from "@mui/system";
 // import { AdminNavBar } from "./components/AdminNavBar";
 // import { Stack } from "@mui/material";
 // import { AdminSideBar } from "./components/AdminSideBar";
-// import { ManageHospital } from "./AdminPages/ManageHospital";
+ import { ManageHospital } from "./AdminPages/ManageHospital";
+import AdminHome from "./AdminPages/AdminHome";
+import DonorRequests from "./AdminPages/DonorRequests";
+import ManageUsers from "./AdminPages/ManageUsers";
 
 
 function App() {
@@ -22,16 +25,18 @@ function App() {
     <div>
       <Box>
         <Routes>
+          {/* Donor */}
           <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
-
-          {/* <Route path="/" element={<Navigate to= {<Login/>}/>}/> */}
-            
-            
-
           <Route path="/new donor" element={<NewDonor />} />
           <Route path="/requests" element={<HospitalRequests />} />
+
+          {/* Admin */}
+          <Route path="/manageHospital" element={<ManageHospital/>} />
+          <Route path="/adminhome" element={<AdminHome/>}/>
+          <Route path="/donors" element= {<DonorRequests/>}/>
+          <Route path="/users" element= {<ManageUsers/>}/>
         </Routes>
       </Box>
      

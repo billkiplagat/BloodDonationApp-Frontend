@@ -5,7 +5,7 @@ export const AdminNavBar = ()=>{
 
     return(
 
-        <AppBar>
+        <AppBar position="sticky">
         <Toolbar>
   
           <Typography variant="h5">Admin Dashboard</Typography>

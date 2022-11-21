@@ -10,6 +10,9 @@ import {
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 
+const logout = ()=>{
+  localStorage.removeItem("token")
+}
 
 function Navbar() {
   return (
@@ -39,14 +42,10 @@ function Navbar() {
           </ListItemButton>
         </ListItem>
 
-        <ListItem>
-          <ListItemButton component="a" href="/contact">
-            <ListItemText primary="Contact" />
-          </ListItemButton>
-        </ListItem>
+    
 
         <ListItem>
-          <ListItemButton component="a" href="/login">
+          <ListItemButton onClick={logout} href="/login">
             <ListItemText primary="Logout" />
           </ListItemButton>
         </ListItem>

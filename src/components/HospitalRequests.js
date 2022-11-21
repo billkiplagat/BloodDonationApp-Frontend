@@ -18,10 +18,19 @@ export const HospitalRequests = () => {
   const [hospital, setHospital] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/donor/requests")
+ 
+    fetch("api/universal/getAllHospitals",{
+      headers:{
+        "Content-Type": "application/json",
+         Authorization: `Bearer ${localStorage.getItem("token")}` 
+      },
+      method: "GET",
+    })
       .then((res) => res.json())
       .then((result) => setHospital(result))
+    
       .catch((e) => console.log(e));
+      console.log(localStorage.getItem("token"));
   }, []);
 
   return (
@@ -49,7 +58,18 @@ export const HospitalRequests = () => {
               </TableCell>
               <TableCell align="center">
                 <Typography sx={{ textDecoration: "underline" }} variant="h6">
-                  Donation Type
+                  Phone Number
+                </Typography>
+              </TableCell>
+              <TableCell align="center">
+                <Typography sx={{ textDecoration: "underline" }} variant="h6">
+                  Email
+                </Typography>
+              </TableCell>
+
+              <TableCell align="center">
+                <Typography sx={{ textDecoration: "underline" }} variant="h6">
+                  Blood Types
                 </Typography>
               </TableCell>
               <TableCell align="center">
@@ -62,11 +82,12 @@ export const HospitalRequests = () => {
 
           <TableBody>
             {hospital.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.hospital_id}>
                 <TableCell align="left">{row.name}</TableCell>
-
-                <TableCell align="center">{row.town}</TableCell>
-                <TableCell align="center">{row.donation}</TableCell>
+                <TableCell align="center">{row.address}</TableCell>
+                <TableCell align="center">{row.phoneNumber}</TableCell>
+                <TableCell align="center">{row.email}</TableCell>
+                <TableCell align="center">{row.bloodType}</TableCell>
 
                 <ButtonGroup
                   sx={{

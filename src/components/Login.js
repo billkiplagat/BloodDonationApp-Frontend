@@ -8,23 +8,27 @@ import {
   Typography,
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
-import { Link } from "react-router-dom";
-// import UserService from "../Services/Users";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+//  import UserService from "../Services/Users";
+
 import { useState, useEffect, useContext, useRef } from "react";
 import AuthContext from "../context/AuthProvider";
 
-import Axios from "../Api/Axios";
-const LOGIN_URL = "/";
+import axios from "axios";
+
+// import Axios from "../Api/Axios";
+const LOGIN_URL = "login";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
-  const [username, setUsername] = useState(" ");
-  const [password, setPassword] = useState(" ");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+
+  const [navigate, setNavigate] = useState(false);
   const errRef = useRef();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const paperStyle = {
     padding: 30,
@@ -40,70 +44,47 @@ const Login = () => {
     setErrMsg("");
   }, [username, password]);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await Axios.post(
-        LOGIN_URL,
-        JSON.stringify({ username, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-           withCredentials: true,
-          
-        }
-      );
-      console.log(JSON.stringify(response?.data));
-      const access_token = response?.data?.access_token;
-      const roles = response?.data?.roles;
-      setAuth({ username, password, roles, access_token });
-      setUsername("");
-      setPassword("");
-      setSuccess(true);
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
-      errRef.current.focus();
+
+
+
+  const Submit = async (e) => {
+    e.preventDefault(); 
+    const res = await fetch(LOGIN_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: username,
+        password: password
+      })    
+    })
+    const data = await res.json(res)
+    setSuccess(true);
+    if(data.access_token){
+      localStorage.setItem("token", data.access_token)
     }
+    console.log(JSON.stringify(data?.access_token))
   };
 
-  // const handleLogin = async(e) =>{
-  //     e.preventDefault();
-  //     try{
-  //         await UserService.login(username, password)
-  //         .then(() =>{
-  //             navigate("/")
-  //             window.location.reload()
-  //         },
-  //         (error) =>{
-  //             console.log(error)
-  //         }
-  //         )
-  //     }catch(err){
-  //         console.log(err)
-  //     }
-  // }
 
+
+
+
+  
   return (
     <>
-      {success ? ( navigate("/")
+      {success ? (
+        <Navigate to="/home" />
       ) : (
-
-        <form onSubmit={handleLogin}>
+        <form onSubmit={Submit}>
           <Paper elevation={15} style={paperStyle}>
-            <p
+            <Typography
+              variant="h6"
+              color="error"
               ref={errRef}
               className={errMsg ? "errmsg" : "offscreen"}
               aria-live="assertive"
             >
               {errMsg}
-            </p>
+            </Typography>
             <Grid align="center">
               <Avatar style={avatarStyle}>
                 <LockIcon />
@@ -113,10 +94,10 @@ const Login = () => {
             <TextField
               style={textFieldStyle}
               autoFocus
-              label="Username"
+              label="Email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter username"
+              placeholder="Enter Email"
               fullWidth
               required
             />
@@ -153,3 +134,50 @@ const Login = () => {
 };
 
 export default Login;
+
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //   console.log(JSON.stringify(response?.data));
+  //   const access_token = response?.data?.access_token;
+  //   const roles = response?.data?.roles;
+  //   setAuth({ username, password, roles, access_token });
+  //   setUsername("");
+  //   setPassword("");
+  //   setSuccess(true);
+
+  //   } catch (err) {
+  //     if (!err?.response) {
+  //       setErrMsg("No Server Response");
+  //     } else if (err.response?.status === 400) {
+  //       setErrMsg("Wrong Username or Password");
+  //     } else if (err.response?.status === 401) {
+  //       setErrMsg("Unauthorized");
+  //     } else {
+  //       setErrMsg("Login Failed");
+  //     }
+  //     errRef.current.focus();
+  //   }
+  // };
+
+
+
+
+
+// const handleLogin = async(e) =>{
+//     e.preventDefault();
+//     try{
+//         await UserService.login(username, password)
+//         .then(() =>{
+//             navigate("/")
+//             window.location.reload()
+//         },
+//         (error) =>{
+//             console.log(error)
+//         }
+//         )
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
